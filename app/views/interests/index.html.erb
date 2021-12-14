@@ -1,0 +1,23 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Interests</h1>
+
+
+<% @interests.each do |interest| %>
+  <div>
+    <div><%= interest.name %> <%= interest.selected %></div>
+    <div>
+      <%= check_box_tag nil, nil, interest.selected, data: { reflex: 'click->InterestReflex#toggle', id: interest.id } %>
+    </div>
+    <ul>
+      <li><%= link_to 'Show', interest %></li>
+      <li><%= link_to 'Edit', edit_interest_path(interest) %></li>
+      <li><%= link_to 'Destroy', interest, method: :delete, data: { confirm: 'Are you sure?' } %></li>
+    </ul>
+  </div>
+<% end %>
+
+
+<br>
+
+<%= link_to 'New Interest', new_interest_path %>
