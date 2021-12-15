@@ -1,6 +1,9 @@
 class User < ApplicationRecord
   after_create :skip_confirmation!
 
+  has_many :interests_users
+  has_many :interests, through: :interests_users
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,

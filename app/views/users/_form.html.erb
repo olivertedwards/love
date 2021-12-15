@@ -26,6 +26,11 @@
     <%= form.text_field :bio %>
   </div>
 
+  <div class="field">
+    <%= form.label :interests %>
+    <%= form.collection_check_boxes :interest_ids, Interest.order(:name), :id, :name, {}, { class: 'select2', multiple: true} %>
+  </div>
+
   <div class="actions">
     <%= form.submit %>
     <%= link_to 'Cancel', users_path %>
