@@ -1,0 +1,12 @@
+<%= form_for(@user) do |f| %>
+  <p>
+    <%= f.label :interests %><br />
+    <% for interest in Interest.all %>
+      <%= check_box_tag "user[interest_ids][]", interest.id, @user.interests.include?(interest) %>
+      <%=h interest.name %><br />
+    <% end %>
+  </p>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

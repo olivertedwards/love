@@ -1,26 +1,26 @@
-<h1><%= @user.full_name %></h1>
+<h1>Profile: <%= @user.full_name %></h1>
 
-<p>Admin: <%= @user.admin? %></p>
+<ul>
+  <li>Admin <%= @user.admin? %></li>
+  <% if current_user.id == @user.id %>
+    <li><%= link_to 'Edit my profile', edit_user_path(current_user) %></li>
+  <% end %>
+</ul>
 
-<h2>Bio</h2>
-<p><%= @user.bio %></p>
+<div>
+  <h2>Bio</h2>
+  <p><%= @user.bio %></p>
+</div>
 
-<% if current_user.id == @user.id %>
-	<%= link_to 'Edit my profile', edit_user_path(current_user) %>
-<% end %>
+<div>
+  <h2>Interests</h2>
+  <ul>
+    <% for interest in Interest.all %>
+      <% if @user.interests.include?(interest) == true %>
+        <li><%=h interest.name %></li>
+      <% end %>
+    <% end %> 
+  </ul>
+</div>
+   
 
-<% Interest.all.each do |interest| %>
-  <div>
-    <div><%= interest.name %> <%= interest.selected %></div>
-    <div>
-      <%= check_box_tag nil, nil, interest.selected, data: { reflex: 'click->InterestReflex#toggle', id: interest.id } %>
-    </div>
-    <ul>
-      <li><%= link_to 'Show', interest %></li>
-      <li><%= link_to 'Edit', edit_interest_path(interest) %></li>
-      <li><%= link_to 'Destroy', interest, method: :delete, data: { confirm: 'Are you sure?' } %></li>
-    </ul>
-  </div>
-<% end %>
-
-<%= link_to 'New Interest', new_interest_path %>
